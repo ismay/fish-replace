@@ -1,4 +1,9 @@
 function replace --description 'find and replace' --argument-names from to
+    if test -z $from; or test -z $to
+        echo 'Need a search and a replace pattern'
+        return 1
+    end
+
     set rg_command rg -l $from
     set fzf_command fzf \
         --color=16 \
