@@ -4,10 +4,10 @@ function replace --description 'find and replace' --argument-names from to
         return 1
     end
 
-    set rg_command rg -l $from
+    set rg_command rg --fixed-strings -l $from
     set fzf_command fzf \
         --color=16 \
-        --preview="rg --line-number --color=always --context=2 $from -r $to {1}" \
+        --preview="rg --line-number --fixed-strings --color=always --context=2 $from -r $to {1}" \
         --layout=reverse \
         --multi
 
@@ -15,7 +15,7 @@ function replace --description 'find and replace' --argument-names from to
 
     if test -n "$selected_files"
         for file in $selected_files
-            rg --passthrough $from -r $to $file | sponge $file
+            rg --fixed-strings --passthrough $from -r $to $file | sponge $file
         end
     end
 
